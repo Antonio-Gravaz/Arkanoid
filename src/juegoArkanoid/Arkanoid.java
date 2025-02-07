@@ -13,7 +13,8 @@ public class Arkanoid {
 	private static int FPS = 60;
 	private static Arkanoid instance = null;
 	private static MiCanvas canvas = null;
-
+	private static List<Actor> actores = new ArrayList<Actor>();
+	
 	public static Arkanoid getArkanoid() {
 		if (instance == null) {
 			instance = new Arkanoid();
@@ -26,7 +27,6 @@ public class Arkanoid {
 		JFrame ventana = new JFrame();
 		ventana.setBounds(0,0,500,500);
 		
-		List<Actor> actores = new ArrayList<Actor>();
 		canvas = new MiCanvas(actores);
 		  
 		ventana.getContentPane().setLayout(new BorderLayout());
@@ -34,15 +34,7 @@ public class Arkanoid {
 		ventana.setIgnoreRepaint(true);
 		ventana.setVisible(true); 
 		
-		Nave jugador = new Nave(10, 400, 50, 10);
-		actores.add(jugador);
-		Bloque bloque = new Bloque(10, 10, 20, 40);
-		actores.add(bloque);  
-		Pelota pelota = new Pelota(
-				numAleatorio(1, 400), 
-				numAleatorio(1, 400), 
-				10, 10);
-		actores.add(pelota);
+		crearActores();
 		
 		int millisPorFrame = 1000 / FPS;
 		do {
@@ -69,10 +61,52 @@ public class Arkanoid {
 		
 	}
 	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	
+	public static List<Actor> crearActores() {
+		Nave jugador = new Nave(10, 400, 50, 10);
+		actores.add(jugador);
+		int separacion = 2;
+		Bloque mBloques[][]
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 10; j++) {
+				
+				Bloque bloque = new Bloque(2,2,
+						getArkanoid().getMiCanvas().getWidth() / 10,
+						getArkanoid().getMiCanvas().getHeight() / 3 / 5);
+				actores.add(bloque);
+				
+			}
+		}
+		  
+		Pelota pelota = new Pelota(
+				numAleatorio(1, 400), 
+				numAleatorio(1, 400), 
+				10, 10);
+		actores.add(pelota);
+		return actores;
+	}
+	
+	/**
+	 * 
+	 * @param minimo
+	 * @param maximo
+	 * @return
+	 */
+	
 	private static int numAleatorio (int minimo, int maximo) {
 		return (int) Math.round(Math.random() * (maximo - minimo) + minimo);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	
 	public MiCanvas getMiCanvas() {
 		return canvas;
 	}
