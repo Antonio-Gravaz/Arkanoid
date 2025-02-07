@@ -6,11 +6,15 @@ public abstract class Actor {
 
 	protected int x;
 	protected int y;
+	protected int ancho;
+	protected int alto;
 	
-	public Actor(int x, int y) {
+	public Actor(int x, int y, int ancho, int alto) {
 		super();
 		this.x = x;
 		this.y = y;
+		this.ancho = ancho;
+		this.alto = alto;
 	}
 
 	public int getX() {
@@ -30,5 +34,7 @@ public abstract class Actor {
 	}
 	
 	public abstract void paint(Graphics g);
+	
+	public abstract void actua();
 	
 }
