@@ -20,7 +20,6 @@ public class MiCanvas extends Canvas {
 
 	@Override
 	public void paint(Graphics g) {
-		super.paint(g);
 		this.setBackground(Color.BLACK);
 		for (Actor a : actores) {
 			a.paint(g);
