@@ -46,7 +46,7 @@ public class Arkanoid {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				super.mouseMoved(e);
-				jugador.mover(e.getX(), e.getY());
+				jugador.mover(e.getX());
 			}			
 		});
 		

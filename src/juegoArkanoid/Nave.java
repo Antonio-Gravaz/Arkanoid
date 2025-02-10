@@ -20,11 +20,11 @@ public class Nave extends Actor {
 		
 	}
 
-	public void mover(int x, int y) {
+	public void mover(int x) {
 		this.x = x;
-		this.y = y;
 		
-		MiCanvas canvas = new Arkanoid().getArkanoid().getMiCanvas();
+		
+		MiCanvas canvas = Arkanoid.getArkanoid().getMiCanvas();
 		
 		if (this.x > (canvas.getWidth() - this.ancho)) {
 			this.x = canvas.getWidth() - this.ancho;
@@ -57,7 +57,7 @@ public class Nave extends Actor {
 	public void actua() {
 		if(derecha) this.x += VELOCIDAD;
 		if(izquierda) this.x -= VELOCIDAD;
-		mover(this.x, this.y);
+		mover(this.x);
 	}
 
 }
