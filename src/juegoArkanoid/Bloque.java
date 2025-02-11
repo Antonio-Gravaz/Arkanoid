@@ -41,4 +41,12 @@ public class Bloque extends Actor {
 	public void actua() {		
 	}
 
+	@Override
+	public void colisionCon(Actor a) {
+		super.colisionCon(a);
+		if (a instanceof Pelota) {
+			Arkanoid.getArkanoid().eliminarActores(this);
+		}
+	}
+
 }

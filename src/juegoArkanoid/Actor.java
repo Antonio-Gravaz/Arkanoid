@@ -33,8 +33,27 @@ public abstract class Actor {
 		this.y = y;
 	}
 	
+	public int getAncho() {
+		return ancho;
+	}
+
+	public void setAncho(int ancho) {
+		this.ancho = ancho;
+	}
+
+	public int getAlto() {
+		return alto;
+	}
+
+	public void setAlto(int alto) {
+		this.alto = alto;
+	}
+
 	public abstract void paint(Graphics g);
 	
 	public abstract void actua();
+	
+	public void colisionCon(Actor a) {
+	}
 	
 }

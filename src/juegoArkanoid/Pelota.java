@@ -34,4 +34,28 @@ public class Pelota extends Actor {
 		}
 	}
 
+	public int getVelocidadX() {
+		return velocidadX;
+	}
+
+	public void setVelocidadX(int velocidadX) {
+		this.velocidadX = velocidadX;
+	}
+
+	public int getVelocidadY() {
+		return velocidadY;
+	}
+
+	public void setVelocidadY(int velocidadY) {
+		this.velocidadY = velocidadY;
+	}
+
+	@Override
+	public void colisionCon(Actor a) {
+		super.colisionCon(a);
+		if (a instanceof Bloque ||a instanceof Nave) {
+			this.velocidadY = -this.velocidadY;
+		}
+	}
+	
 }

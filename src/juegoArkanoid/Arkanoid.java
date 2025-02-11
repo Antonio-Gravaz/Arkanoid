@@ -1,6 +1,7 @@
 package juegoArkanoid;
 
 import java.awt.BorderLayout;
+import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -22,6 +23,8 @@ public class Arkanoid {
 	private MiCanvas canvas = null;
 	private List<Actor> actores = new ArrayList<Actor>();
 	Nave jugador = null;
+	private List<Actor> actoresAgregados = new ArrayList<Actor>();
+	private List<Actor> actoresEliminados = new ArrayList<Actor>();
 	
 	private static Arkanoid instance = null;
 	
@@ -98,6 +101,10 @@ public class Arkanoid {
 	public void juego() {
 		int millisPorFrame = 1000 / FPS;
 		do {
+			if (ventana.getFocusOwner() != null && !ventana.getFocusOwner().equals(canvas)) {
+				canvas.requestFocus();
+			}
+			
 			long millisAntesDeEscena = new Date().getTime();
 			
 			canvas.pintarEscena();
@@ -105,6 +112,10 @@ public class Arkanoid {
 			for (Actor a : actores) {
 				a.actua();
 			}
+			
+			detectaColisiones();
+			
+			actualizarActores();
 			
 			long millisDespuesDeEscena = new Date().getTime();
 			int millisProcesamientoEscena = (int) (millisDespuesDeEscena - millisAntesDeEscena);
@@ -164,7 +175,41 @@ public class Arkanoid {
 		return (int) Math.round(Math.random() * (maximo - minimo) + minimo);
 	}
 	
+	public void agregarActores(Actor a) {
+		this.actoresAgregados.add(a);	
+	}
 
+	public void eliminarActores(Actor a) {
+		this.actoresEliminados.add(a);
+	}
+	
+	public void actualizarActores(){
+		for (Actor a : this.actoresAgregados) {
+			this.actores.add(a);
+		}
+		this.actoresAgregados.clear();
+		
+		for (Actor a : this.actoresEliminados) {
+			this.actores.remove(a);
+		}
+		this.actoresEliminados.clear();
+	}
+	
+	public void detectaColisiones() {
+		for (Actor a1 : this.actores) {
+			Rectangle act1 = new Rectangle(a1.getX(), a1.getY(), a1.getAncho(), a1.getAlto());
+			for (Actor a2 : this.actores) {
+				if (!a1.equals(a2)) {
+					Rectangle act2 = new Rectangle(a2.getX(), a2.getY(), a2.getAncho(), a2.getAlto());
+					if (act1.intersects(act2)) {
+						a1.colisionCon(a2);
+						a2.colisionCon(a1);
+					}
+				}
+			}
+		}
+	}
+	
 	/**
 	 * 
 	 * @return
